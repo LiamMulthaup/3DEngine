@@ -25,7 +25,7 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	Angle3D perspectiveAngle = new Angle3D(0, 0);
 	double FOV = 2000;
 	Point3D perspectiveLocation = new Point3D();
-	ArrayList<Control3D> controls = new ArrayList<Control3D>(); // list will have to be sorted so that controls earlier in the list are closer to the perspective.
+	private ArrayList<Control3D> controls = new ArrayList<Control3D>(); // list will have to be sorted so that controls earlier in the list are closer to the perspective.
 	ArrayList<Double> controlDistances = new ArrayList<Double>();
 	ArrayList<DotDrawing> drawingDots = new ArrayList<DotDrawing>();
 	double planeI;
@@ -84,7 +84,16 @@ public class Panel3D extends JPanel implements MouseMotionListener
 		}
 		for (DotDrawing d : drawingDots)
 		{
-			d.paint(g);
+			int complete = 0;
+			ArrayList<MultiDotObject> containers = new ArrayList<MultiDotObject>();
+			if (d.container == null)
+			{
+				d.paint(g, this);
+			}
+			else
+			{
+				d.container.tempIndex = containers.size();
+			}
 		}
 	}
 	public void sortControls()
@@ -119,22 +128,34 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	}
 	public void addControl3D(Control3D control)
 	{
-		double xDif = perspectiveLocation.x - control.location.x;
-		double yDif = perspectiveLocation.y - control.location.y;
-		double zDif = perspectiveLocation.z - control.location.z;
-		double radius = Math.sqrt((xDif * xDif) + (yDif * yDif) + (zDif * zDif));
-		int i = 0;
-		while (i < controlDistances.size())
+		if (control.getClass() == Plane.class)
 		{
-			if (controlDistances.get(i) > radius)
+			Plane plane = (Plane) control;
+			for (int i = 0; i < plane.dots.length; i++)
 			{
-				break;
+				addControl3D(plane.dots[i]);
+				control.panel = this;
 			}
-			i++;
 		}
-		controls.add(i, control);
-		controlDistances.add(i, radius);
-		control.panel = this;
+		else
+		{
+			double xDif = perspectiveLocation.x - control.location.x;
+			double yDif = perspectiveLocation.y - control.location.y;
+			double zDif = perspectiveLocation.z - control.location.z;
+			double radius = Math.sqrt((xDif * xDif) + (yDif * yDif) + (zDif * zDif));
+			int i = 0;
+			while (i < controlDistances.size())
+			{
+				if (controlDistances.get(i) > radius)
+				{
+					break;
+				}
+				i++;
+			}
+			controls.add(i, control);
+			controlDistances.add(i, radius);
+			control.panel = this;
+		}
 	}
 	public void addDotDrawing(DotDrawing control)
 	{

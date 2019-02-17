@@ -5,22 +5,23 @@ import java.awt.event.KeyListener;
 
 public class KeyEventListener implements KeyListener
 {
-	boolean wPressed;
-	boolean aPressed;
-	boolean sPressed;
-	boolean dPressed;
+	boolean wPressed = false;
+	boolean aPressed = false;
+	boolean sPressed = false;
+	boolean dPressed = false;
 	
-	boolean gPressed;
-	boolean hPressed;
-	boolean rPressed;
+	boolean gPressed = false;
+	boolean hPressed = false;
+	boolean rPressed = false;
+	boolean lPressed = false;
 	
-	boolean upPressed;
-	boolean rightPressed;
-	boolean leftPressed;
-	boolean downPressed;
+	boolean upPressed = false;
+	boolean rightPressed = false;
+	boolean leftPressed = false;
+	boolean downPressed = false;
 	
-	boolean spacePressed;
-	boolean shiftPressed;
+	boolean spacePressed = false;
+	boolean shiftPressed = false;
 	
 	boolean exit;
 	@Override
@@ -77,6 +78,10 @@ public class KeyEventListener implements KeyListener
 		if (arg0.getKeyCode() == 82)
 		{
 			rPressed = true;
+		}
+		if (arg0.getKeyCode() == 76)
+		{
+			lPressed = true;
 		}
 		if (arg0.getKeyCode() == arg0.VK_ESCAPE)
 		{
@@ -138,6 +143,10 @@ public class KeyEventListener implements KeyListener
 		if (arg0.getKeyCode() == 82)
 		{
 			rPressed = false;
+		}
+		if (arg0.getKeyCode() == 76)
+		{
+			lPressed = false;
 		}
 		if (arg0.getKeyCode() == arg0.VK_ESCAPE)
 		{

@@ -1,7 +1,6 @@
 package Objects3D;
 
 import java.awt.Graphics;
-import java.awt.Point;
 
 public class Control3D 
 {

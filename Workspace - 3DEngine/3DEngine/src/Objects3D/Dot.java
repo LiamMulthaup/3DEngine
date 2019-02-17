@@ -8,6 +8,7 @@ public class Dot extends Control3D
 {
 	double radius = 10;
 	Color color = Color.white;
+	MultiDotObject container;
 	public Dot(Point3D location) 
 	{
 		super(location);
@@ -73,6 +74,7 @@ public class Dot extends Control3D
 			
 			if ((int) Math.round(newUI / uI) != -1 && size != 0)
 			{
+				
 				double vX1 = panel.panelTopCenter.x - panel.panelTopLeft.x;
 				double vY1 = panel.panelTopCenter.y - panel.panelTopLeft.y;
 				double vZ1 = panel.panelTopCenter.z - panel.panelTopLeft.z;
@@ -102,16 +104,52 @@ public class Dot extends Control3D
 				double altYDrawing = panel.getHeight() + Math.sin(angleBetween2 + Math.PI) * v4Distance;
 				//System.out.println((Math.round(altXDrawing) == Math.round(xDrawing)));
 				//System.out.println((Math.round(altYDrawing) - Math.round(yDrawing)));
+				boolean drawNormally = true;
+				
 				if (Math.round(xDrawing) == Math.round(altXDrawing) && Math.round(yDrawing) == Math.round(altYDrawing))
 				{
-					//g.setColor(color);
-					//g.fillOval((int) (xDrawing - size / 2.0), (int) (yDrawing - size / 2.0), size, size);
-					if (xDrawing + size / 2 > 0 && xDrawing - size / 2 < panel.getWidth() && yDrawing + size / 2 > 0 && yDrawing - size / 2 < panel.getHeight())
+					drawNormally = true;
+				}
+				else
+				{
+					double bottomRightToDrawingDistance = Math.sqrt(((xDrawing - panel.getWidth()) * (xDrawing - panel.getWidth())) + ((yDrawing - panel.getHeight()) * (yDrawing - panel.getHeight())));
+					double topLeftToAltDrawingDistance = Math.sqrt((altXDrawing * altXDrawing) + (altYDrawing * altYDrawing));
+					if (Math.round(v4Distance * 10) == Math.round(bottomRightToDrawingDistance * 10))
 					{
-						panel.addDotDrawing(new DotDrawing(new Point((int)xDrawing, (int)yDrawing), size, color, distance));
+						drawNormally = true;
+					}
+					else if (Math.round(v2Distance * 10) == Math.round(topLeftToAltDrawingDistance * 10))
+					{
+						drawNormally = false;
+					}
+					else
+					{
+						/*
+						System.out.println("drawNormally is not working...");
+						System.out.println("v4 / bottomRightToDraw..." + v4Distance + " " + bottomRightToDrawingDistance);
+						System.out.println("v2 / topRightToAltDrawingDistance..." + v2Distance + " " + topLeftToAltDrawingDistance);
+						System.out.println("Angle 1:" + angleBetween);
+						System.out.println("Angle 2:" + angleBetween2);
+						System.out.println(xDrawing + " " + yDrawing);
+						System.out.println(altXDrawing + " " + altYDrawing);
+						System.out.println("Location:" + location);
+						*/
 					}
 				}
-			}	
+				
+				boolean drawingVisible = xDrawing + size / 2 > 0 && xDrawing - size / 2 < panel.getWidth() && yDrawing + size / 2 > 0 && yDrawing - size / 2 < panel.getHeight();
+				boolean altDrawingVisible = altXDrawing + size / 2 > 0 && altXDrawing - size / 2 < panel.getWidth() && altYDrawing + size / 2 > 0 && altYDrawing - size / 2 < panel.getHeight();
+				
+				if (drawingVisible && drawNormally)
+				{
+					panel.addDotDrawing(new DotDrawing(new Point((int)xDrawing, (int)yDrawing), size, color, distance, container, this));
+				}
+				if (altDrawingVisible && !drawNormally)
+				{
+					panel.addDotDrawing(new DotDrawing(new Point((int)altXDrawing, (int)altYDrawing), size, color, distance, container, this));
+				}
+				
+			}
 		}
 	}
 }

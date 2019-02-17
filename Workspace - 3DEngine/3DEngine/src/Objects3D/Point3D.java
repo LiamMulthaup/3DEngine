@@ -48,4 +48,8 @@ public class Point3D
 	{
 		return "X: " + x + ", Y: " + y + ", Z: " + z;
 	}
+	public double getMagnitude()
+	{
+		return Math.sqrt(x * x + y * y + z * z);
+	}
 }

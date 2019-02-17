@@ -6,12 +6,13 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
-public class test {
+public class Test {
 
 	public static void main(String[] args) 
 	{
@@ -20,13 +21,15 @@ public class test {
 		Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		Screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Panel3D panel = new Panel3D();
-		Screen.setSize(200, 200);
+		Screen.setSize(1600, 800);
 		panel.setBackground(new Color(0, 0, 0));
 		Screen.setBackground(new Color(0, 0, 0));
 		panel.setBackground(new Color(0, 0, 0));
-		Dot[] dots = new Dot[10001];//100001];
-		
-		for (double k = 0; k <= 10000; k+= 1)
+		final int frequency = 20;
+		final int width = 100;
+		Dot[] dots = new Dot[width * width + 1];//100001];
+		///*
+		for (double k = 0; k <= width * width; k+= 2)
 		{
 			//Dot a = new Dot(new Point3D(Math.abs((Math.abs(k) / k * k) % 30 - 15), k, 0));
 			//dot b = new Dot(new Point3D(k, (Math.abs((Math.abs(k) / k * k) % 30 - 15) + (Math.abs((Math.abs(k) / k * k) % 30 - 15) / 3)), 0));
@@ -39,98 +42,147 @@ public class test {
 			//Dot a = new Dot(new Point3D(Math.sin(k / 10) * k, Math.sin(k / 10 - Math.PI / 2) * k, 0));
 			//Dot a = new Dot(new Point3D(Math.sin(k * 10) * 100, k, Math.sin(k / 100) * 50));
 			//Dot a = new Dot(new Point3D(Math.sin(k * 10) * 100, k, Math.sin(k / 100) * 50 * Math.cos((Math.sin(k * 10) * 100) * Math.PI / 200 )));
-			Dot a = new Dot(new Point3D(Math.sin(k / 10) * k, Math.sin(k / 10 - Math.PI / 2) * k, Math.cos(Math.sqrt((Math.sin(k / 10) * k) * (Math.sin(k / 10) * k) + (Math.sin(k / 10 - Math.PI / 2) * k) * (Math.sin(k / 10 - Math.PI / 2) * k)) / 100) * 2000 / Math.pow(k, 1 / 3.0) ));
-			System.out.println(k);
+			//Dot a = new Dot(new Point3D(Math.sin(k / 10) * k, Math.sin(k / 10 - Math.PI / 2) * k, Math.cos(Math.sqrt((Math.sin(k / 10) * k) * (Math.sin(k / 10) * k) + (Math.sin(k / 10 - Math.PI / 2) * k) * (Math.sin(k / 10 - Math.PI / 2) * k)) / 100) * 2000 / Math.pow(k, 1 / 3.0) ));
+			//Dot a = new Dot(new Point3D((int)(k / 4) * 20, k % 4 * 5, 0));
+			//Dot a = new Dot(new Point3D(k % width * frequency - width * frequency / 2 - 20, (int)(k / width) * frequency - width * frequency / 2 - 20, - 10000000 / ( (k % width * frequency - width * frequency / 2 - 20) * (k % width * frequency - width * frequency / 2 - 20) + ((int)(k / width) * frequency - width * frequency / 2 - 20) * ((int)(k / width) * frequency - width * frequency / 2 - 20) ) ) );
+			//Dot a = new Dot(new Point3D(Math.sin(k / 7.125739679485947843859367 - 1) * Math.pow(k, 0.5) * 20, k, Math.sin(k / 10) * Math.pow(k, 0.5) * 20));
+			double x = k % width * frequency - width * frequency / 2 - 20;
+			double y = (int)(k / width) * frequency - width * frequency / 2 - 20;
+			//X component 
+			//Dot a = new Dot(new Point3D(x, y, 10000000 / (x * x + y * y) * x / Math.sqrt(x * x + y * y) ));
+			//Y component 
+			Dot a = new Dot(new Point3D(x, y, 10000000 / (x * x + y * y) * y / Math.sqrt(x * x + y * y)));
+			//Dot a = new Dot(new Point3D(x, y, Math.sqrt(5 + 100 * Math.sqrt(x) + y * y)));
+			//Dot a = new Dot(new Point3D(x, y, Math.sqrt(1000000 * ( 1.0 / Math.sqrt(x * x + y * y) - 1.0 / 400) )    ));
+			//Dot a = new Dot(new Point3D( Math.cos(k / 20) * (int)(k / 40 / Math.PI + 40) * 50, Math.sin(k / 20) * (int)(k / 40 / Math.PI + 40) * 50 + 100000, -5000));
+			double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
+			//Dot a = new Dot(new Point3D(x, y, sineSwitch * Math.sqrt(1000000 - (x * x + y * y))));
+			//Dot a = new Dot(new Point3D(x, y, (x * x * x / 3 + y * y * x) / width / width / frequency / frequency));
+
+			//Dot a = new Dot(new Point3D(x, y, (Math.pow(x / frequency, 2) + Math.pow(y / frequency, 2) + Math.pow(width, 2) / 6)));
+			//System.out.println(k);
 			a.radius = 20;
-			a.color = new Color((int) (255),(int) (255),(int) (255));
-			//a.color = new Color((int) (Math.random() * 256),(int) (Math.random() * 256),(int) (Math.random() * 256));
+			//a.color = new Color((int) (200),(int) (0),(int) (200));
+			a.color = new Color((int) (Math.random() * 150) + (int)(Math.random() * 107),(int) (Math.random() * 256),(int) (Math.random() * 150 + (int)(Math.random() * 107)));
+			//a.color = new Color((int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100);
 			panel.addControl3D(a);
 			dots[(int)k] = a;
 		}
+		/*
 		new Timer().scheduleAtFixedRate(new TimerTask()
 		{
 			double radiusTurn = 0;
 			public void run()
 			{
 				radiusTurn-= Math.PI / 300;
-				for (double k = -0; k <= 10000; k+= 1)
+				for (double k = -0; k <= width * width; k+= 2)
 				{
 					//dots[(int)k].location = new Point3D(Math.sin(k / 10 + radiusTurn) * k / 10, k - 10000, Math.sin(k / 10 - Math.PI / 2 + radiusTurn) * k / 10);
 					double xOffset = 0;
 					double yOffset = 0;
 					double distance = Math.sqrt((Math.sin(k / 10) * k - xOffset) * (Math.sin(k / 10) * k - xOffset) + (Math.sin(k / 10 - Math.PI / 2) * k - yOffset) * (Math.sin(k / 10 - Math.PI / 2) * k - yOffset));
 					dots[(int)k].location = new Point3D(Math.sin(k / 10) * k, Math.sin(k / 10 - Math.PI / 2) * k, Math.cos(Math.sqrt((Math.sin(k / 10) * k - xOffset) * (Math.sin(k / 10) * k - xOffset) + (Math.sin(k / 10 - Math.PI / 2) * k - yOffset) * (Math.sin(k / 10 - Math.PI / 2) * k - yOffset)) / 400 + radiusTurn) * 800000 / Math.pow(distance, 1) );
-					
 				}
 				Screen.repaint();
 			}
 		}
 		, 10, 10);
-		for (int y = -200; y < 200; y+=20)
+		/*
+		for (double k = 0; k <= 2500; k+= 1)
 		{
-			for (int z = -200; z < 200; z+=20)
+			double x = k % 50 * 20 - 50 * 20 / 2 - 20;
+			double y = (int)(k / 50) * 20 - 50 * 20 / 2 - 20;
+			Dot a = new Dot(new Point3D( Math.cos(k / 20) * (int)(k / 40 / Math.PI + 40) * 50, Math.sin(k / 20) * (int)(k / 40 / Math.PI + 40) * 50 + 100000, -5000));
+			//System.out.println(k);
+			a.radius = 200;
+			a.color = new Color((int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100);
+			panel.addControl3D(a);
+		}
+		*/
+		for (double k = 0; k <= 25000; k+= 1)
+		{
+			double angleHorizontal = Math.random() * 2 * Math.PI;
+			double angleVertical = Math.random() * 2 * Math.PI;
+			Point3D starLocation = new Point3D(0, 0, 0).getPointAt(new Angle3D(angleHorizontal, angleVertical), 20000000);
+			Dot a = new Dot(starLocation);
+			a.radius = 50000 + Math.random() * 30000;
+			a.color = new Color((int) (Math.random() * 56) + 200, 255,(int) (Math.random() * 56) + 200);
+			panel.addControl3D(a);
+		}
+		int cubeDotDistance = 20;
+		int cubeDistance = 8000;
+		for (int y = -200; y < 200; y+=cubeDotDistance)
+		{
+			for (int z = -200; z < 200; z+=cubeDotDistance)
 			{
-				Dot a = new Dot(new Point3D(1000, y, z));
+				Dot a = new Dot(new Point3D(1000 + cubeDistance, y, z));
 				a.color = new Color((int) (255),(int) (0),(int) (0));
 				panel.addControl3D(a);
 			}
 		}
 		
-		for (int x = 1000; x < 1400; x+=20)
+		for (int x = 1000; x < 1400; x+=cubeDotDistance)
 		{
-			for (int z = -200; z < 200; z+=20)
+			for (int z = -200; z < 200; z+=cubeDotDistance)
 			{
-				Dot a = new Dot(new Point3D(x, 200, z));
+				Dot a = new Dot(new Point3D(x + cubeDistance, 200, z));
 				a.color = new Color((int) (0),(int) (255),(int) (0));
 				panel.addControl3D(a);
 			}
 		}
 		
 		
-		for (int x = 1000; x < 1400; x+=20)
+		for (int x = 1000; x < 1400; x+=cubeDotDistance)
 		{
-			for (int z = -200; z < 200; z+=20)
+			for (int z = -200; z < 200; z+=cubeDotDistance)
 			{
-				Dot a = new Dot(new Point3D(x, - 200, z));
+				Dot a = new Dot(new Point3D(x + cubeDistance, - 200, z));
 				a.color = new Color((int) (0),(int) (0),(int) (255));
 				panel.addControl3D(a);
 			}
 		}
 		
 		
-		for (int y = -200; y < 200; y+=20)
+		for (int y = -200; y < 200; y+=cubeDotDistance)
 		{
-			for (int z = -200; z < 200; z+=20)
+			for (int z = -200; z < 200; z+=cubeDotDistance)
 			{
-				Dot a = new Dot(new Point3D(1400, y, z));
+				Dot a = new Dot(new Point3D(1400 + cubeDistance, y, z));
 				a.color = new Color((int) (255),(int) (255),(int) (0));
 				panel.addControl3D(a);
 			}
 		}
 		
 		
-		for (int x = 1000; x < 1400; x+=20)
+		for (int x = 1000; x < 1400; x+=cubeDotDistance)
 		{
-			for (int y = -200; y < 200; y+=20)
+			for (int y = -200; y < 200; y+=cubeDotDistance)
 			{
-				Dot a = new Dot(new Point3D(x, y, 200));
+				Dot a = new Dot(new Point3D(x + cubeDistance, y, 200));
 				a.color = new Color((int) (255),(int) (0),(int) (255));
 				panel.addControl3D(a);
 			}
 		}
 		
 		
-		for (int x = 1000; x < 1400; x+=20)
+		for (int x = 1000; x < 1400; x+=cubeDotDistance)
 		{
-			for (int y = -200; y < 200; y+=20)
+			for (int y = -200; y < 200; y+=cubeDotDistance)
 			{
-				Dot a = new Dot(new Point3D(x, y, - 200));
+				Dot a = new Dot(new Point3D(x + cubeDistance, y, - 200));
 				a.color = new Color((int) (255),(int) (118),(int) (0));
 				panel.addControl3D(a);
 			}
 		}
 		
-		System.out.println(new Point3D(10, 10, 10).getAngleTo(new Point3D(0, 0, 0)));
+		Dot cubeLocator = new Dot(new Point3D(1200 + cubeDistance, 0, 0));
+		Dot saturn = new Dot(new Point3D(0, 100000, - 5000));
+		saturn.color = new Color(195, 107, 31);
+		saturn.radius = 10000;
+		cubeLocator.radius = 300;
+		cubeLocator.color = new Color(255, 125, 0);
+		
+		//System.out.println(new Point3D(10, 10, 10).getAngleTo(new Point3D(0, 0, 0)));
 		
 		Dot a = new Dot(new Point3D(100, 10, 10));
 		a.radius = 50;
@@ -146,13 +198,14 @@ public class test {
 		Dot h = new Dot(new Point3D(1000, - 10, - 10));
 		Dot i = new Dot(new Point3D(2000, 80, 10));
 		Dot j = new Dot(new Point3D(-3000, 60, - 10));
-		Dot sun = new Dot(new Point3D(100000, 1000000, 0));
-		CelestialObject earth = new CelestialObject(new Point3D(-20, -20, 0));
+		LensFlare sun = new LensFlare(new Point3D(100000, 1000000, 0));
+		CelestialObject earth = new CelestialObject(new Point3D(0, 0, 0));
 		earth.mass = 50000;
 		earth.color = Color.green;
 		panel.addControl3D(earth);
-		earth.radius = 200;
-		sun.color = new Color(255, 255, 0);
+		panel.addControl3D(saturn);
+		earth.radius = 300;
+		sun.color = new Color(247, 184, 19);
 		sun.radius = 100000;
 		KeyEventListener listener = new KeyEventListener();
 		Screen.addKeyListener(listener);
@@ -169,6 +222,7 @@ public class test {
 		panel.addControl3D(i);
 		panel.addControl3D(j);
 		panel.addControl3D(sun);
+		panel.addControl3D(cubeLocator);
 		Screen.add(panel);
 		Screen.setVisible(true);
 		Screen.repaint();
@@ -181,12 +235,21 @@ public class test {
 		{
 			Point3D movementVector = new Point3D();
 			boolean rocketMode = false;
+			boolean lightSpeed = false;
 			public void run()
 			{
 				final double distance;
 				if (rocketMode)
 				{
-					distance = 0.1;
+					if (lightSpeed & (listener.wPressed || listener.aPressed || listener.sPressed || listener.dPressed || listener.spacePressed || listener.shiftPressed))
+					{
+						distance = 10000;
+						lightSpeed = false;
+					}
+					else
+					{
+						distance = 0.1;
+					}
 				}
 				else
 				{
@@ -198,12 +261,12 @@ public class test {
 				if (rocketMode == true)
 				{
 					vectorWorking = addVector;
+					paint = true;
 				}
 				else
 				{
 					vectorWorking = panel.perspectiveLocation;
 				}
-				paint = true;
 				if (listener.wPressed)
 				{
 					vectorWorking.x+=Math.cos(panel.perspectiveAngle.horizontal) * distance;
@@ -230,12 +293,12 @@ public class test {
 				}
 				if (listener.upPressed)
 				{
-					panel.perspectiveAngle.vertical+=0.005;
+					panel.perspectiveAngle.vertical+=0.01;
 					paint = true;
 				}
 				if (listener.downPressed)
 				{
-					panel.perspectiveAngle.vertical-=0.005;
+					panel.perspectiveAngle.vertical-=0.01;
 					paint = true;
 				}
 				if (listener.spacePressed)
@@ -250,12 +313,12 @@ public class test {
 				}
 				if (listener.rightPressed)
 				{
-					panel.perspectiveAngle.horizontal-=0.005;
+					panel.perspectiveAngle.horizontal-=0.01;
 					paint = true;
 				}
 				if (listener.leftPressed)
 				{
-					panel.perspectiveAngle.horizontal+=0.005;
+					panel.perspectiveAngle.horizontal+=0.01;
 					paint = true;
 				}
 				/*
@@ -275,11 +338,21 @@ public class test {
 					if (rocketMode)
 					{
 						rocketMode = false;
+						lightSpeed = false;
+						movementVector = new Point3D();
 					}
 					else
 					{
 						rocketMode = true;
 						movementVector = new Point3D();
+					}
+				}
+				if (listener.lPressed)
+				{
+					listener.lPressed = false;
+					if (rocketMode)
+					{
+						lightSpeed = true;
 					}
 				}
 				if (listener.exit)
@@ -302,6 +375,10 @@ public class test {
 				}
 				movementVector = movementVector.addPoint(addVector);
 				panel.perspectiveLocation = panel.perspectiveLocation.addPoint(movementVector);
+				if (panel.mouseLocked == true)
+				{
+					paint = true;
+				}
 				if (paint)
 				{
 					Screen.repaint();
@@ -319,29 +396,65 @@ public class test {
 					{
 						CelestialObject newCelestialObject = new CelestialObject(panel.perspectiveLocation);
 						newCelestialObject.movementVector = new Point3D(0, 0, 0).getPointAt(panel.perspectiveAngle, 3);
+						newCelestialObject.mass = 1;
 						newCelestialObject.radius = 40;
 						panel.addControl3D(newCelestialObject);
 						celestialObjects.add(newCelestialObject);
 						listener.gPressed = false;
 					}
+					final double gravitationalConstant = 0.5;
 					for (CelestialObject o : celestialObjects)
 					{
+						Point3D estimatedMovementVector = new Point3D(o.movementVector);
+						double[] radiuses = new double[celestialObjects.size() - 1];
+						int radiusesIndex = 0;
 						for (CelestialObject i : celestialObjects)
 						{
 							if (o != i)
 							{
 								double r = o.location.getDistanceTo(i.location);
-								double force = (o.mass * i.mass) / (r * r) / 10;
-								//System.out.println(force);
-								o.movementVector = o.movementVector.addPoint(new Point3D().getPointAt(o.location.getAngleTo(i.location), force / o.mass));
+								radiuses[radiusesIndex] = r;
+								radiusesIndex++;
+								double force = (o.mass * i.mass) / (r * r) * gravitationalConstant;
+								estimatedMovementVector = o.movementVector.addPoint(new Point3D().getPointAt(o.location.getAngleTo(i.location), force / o.mass));
 							}
 						}
+						Point3D newLocation = o.location.addPoint(estimatedMovementVector);
+						double changeInEnergy = 0;
+						radiusesIndex = 0;
+						for (CelestialObject i : celestialObjects)
+						{
+							if (o != i)
+							{
+								double rI = radiuses[radiusesIndex];
+								double rF = newLocation.getDistanceTo(i.location);
+								changeInEnergy += (o.mass * i.mass) / rF * gravitationalConstant - (o.mass * i.mass) / rI * gravitationalConstant;
+								radiusesIndex++;
+							}
+						}
+						o.location = newLocation;
+						Angle3D velocityAngle = new Point3D(0,0,0).getAngleTo(estimatedMovementVector);
+						double newKineticEnergy = o.mass / 2 * o.movementVector.getMagnitude() * o.movementVector.getMagnitude() + changeInEnergy;
+						/*
+						if (o == earth)
+						{
+							System.out.println("Movement: " + o.movementVector.getMagnitude());
+							System.out.println("Change In Energy: " + changeInEnergy);
+							System.out.println("New Kinetic Energy: " + newKineticEnergy);
+						}
+						*/
+						if (newKineticEnergy > 0)
+						{
+							double newVelocityMagnitude;
+							newVelocityMagnitude = Math.sqrt(newKineticEnergy * 2 / o.mass);
+							o.movementVector = new Point3D(0, 0, 0).getPointAt(velocityAngle, newVelocityMagnitude);
+						}
+						else
+						{
+							o.movementVector = new Point3D(0,0,0);
+						}
 					}
-					for (CelestialObject o : celestialObjects)
-					{
-						o.location = o.location.addPoint(o.movementVector);
-					}
-					Screen.repaint();
+					//Screen.repaint();
 				}
 		}
 				, 20, 20);
