@@ -42,6 +42,16 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	{
 		this.addMouseMotionListener(this);
 	}
+	public boolean dispose(Control3D control)
+	{
+		controlDistances.remove(controls.indexOf(control));
+		return controls.remove(control);
+	}
+	public void disposeAll()
+	{
+		controls.clear();
+		controlDistances.clear();
+	}
 	public void paintComponent(Graphics g)
 	{
 		Point3D center = new Point3D(0,0,0).getPointAt(perspectiveAngle, FOV);
@@ -180,14 +190,14 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	{
 		if (mouseLocked)
 		{
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			int x = MouseInfo.getPointerInfo().getLocation().x;
-			int y = MouseInfo.getPointerInfo().getLocation().y;
-			perspectiveAngle.horizontal-= (x - (int) (screenSize.getWidth() / 2)) / 1000.0;
-			perspectiveAngle.vertical-= (y - (int) (screenSize.getHeight() / 2)) / 1000.0;
+			Point p = this.getLocationOnScreen();
+			int x = MouseInfo.getPointerInfo().getLocation().x - p.x;
+			int y = MouseInfo.getPointerInfo().getLocation().y - p.y;
+			perspectiveAngle.horizontal-= (x - (int) (this.getWidth() / 2)) / 1000.0;
+			perspectiveAngle.vertical-= (y - (int) (this.getHeight() / 2)) / 1000.0;
 			try {
 				Robot r = new Robot();
-				r.mouseMove((int)(screenSize.getWidth() / 2), (int) (screenSize.getHeight() / 2));
+				r.mouseMove((int)(p.x + this.getWidth() / 2), (int) ( p.y + this.getHeight() / 2));
 			} catch (AWTException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

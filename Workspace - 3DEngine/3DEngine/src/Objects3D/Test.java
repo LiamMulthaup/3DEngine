@@ -25,14 +25,14 @@ public class Test {
 		panel.setBackground(new Color(0, 0, 0));
 		Screen.setBackground(new Color(0, 0, 0));
 		panel.setBackground(new Color(0, 0, 0));
-		final int frequency = 20;
+		final int wavelength = 90;
 		final int width = 100;
-		Dot[] dots = new Dot[width * width + 1];//100001];
+		Dot[] dots = new Dot[width * width];//100001];
 		///*
-		for (double k = 0; k <= width * width; k+= 2)
+		for (double k = 0; k < width * width; k+= 1)
 		{
 			//Dot a = new Dot(new Point3D(Math.abs((Math.abs(k) / k * k) % 30 - 15), k, 0));
-			//dot b = new Dot(new Point3D(k, (Math.abs((Math.abs(k) / k * k) % 30 - 15) + (Math.abs((Math.abs(k) / k * k) % 30 - 15) / 3)), 0));
+			//dot a = new Dot(new Point3D(k, (Math.abs((Math.abs(k) / k * k) % 30 - 15) + (Math.abs((Math.abs(k) / k * k) % 30 - 15) / 3)), 0));
 			//Dot a = new Dot(new Point3D(Math.sin(k / 10) * 10 * Math.sin(k / 100), k, Math.sin(k / 10 - Math.PI / 2) * 10 * Math.sin(k / 100)));
 			//Dot a = new Dot(new Point3D(Math.sin(k / 10) * 10, k, Math.sin(k / 10 - Math.PI / 2) * 10));
 			//Dot a = new Dot(new Point3D(Math.sin(k / 10) * k / 10, k, Math.sin(k / 10 - Math.PI / 2) * k / 10));
@@ -44,26 +44,28 @@ public class Test {
 			//Dot a = new Dot(new Point3D(Math.sin(k * 10) * 100, k, Math.sin(k / 100) * 50 * Math.cos((Math.sin(k * 10) * 100) * Math.PI / 200 )));
 			//Dot a = new Dot(new Point3D(Math.sin(k / 10) * k, Math.sin(k / 10 - Math.PI / 2) * k, Math.cos(Math.sqrt((Math.sin(k / 10) * k) * (Math.sin(k / 10) * k) + (Math.sin(k / 10 - Math.PI / 2) * k) * (Math.sin(k / 10 - Math.PI / 2) * k)) / 100) * 2000 / Math.pow(k, 1 / 3.0) ));
 			//Dot a = new Dot(new Point3D((int)(k / 4) * 20, k % 4 * 5, 0));
-			//Dot a = new Dot(new Point3D(k % width * frequency - width * frequency / 2 - 20, (int)(k / width) * frequency - width * frequency / 2 - 20, - 10000000 / ( (k % width * frequency - width * frequency / 2 - 20) * (k % width * frequency - width * frequency / 2 - 20) + ((int)(k / width) * frequency - width * frequency / 2 - 20) * ((int)(k / width) * frequency - width * frequency / 2 - 20) ) ) );
+			//Dot a = new Dot(new Point3D(k % width * wavelength - width * wavelength / 2 - 20, (int)(k / width) * wavelength - width * wavelength / 2 - 20, - 10000000 / ( (k % width * wavelength - width * wavelength / 2 - 20) * (k % width * wavelength - width * wavelength / 2 - 20) + ((int)(k / width) * wavelength - width * wavelength / 2 - 20) * ((int)(k / width) * wavelength - width * wavelength / 2 - 20) ) ) );
 			//Dot a = new Dot(new Point3D(Math.sin(k / 7.125739679485947843859367 - 1) * Math.pow(k, 0.5) * 20, k, Math.sin(k / 10) * Math.pow(k, 0.5) * 20));
-			double x = k % width * frequency - width * frequency / 2 - 20;
-			double y = (int)(k / width) * frequency - width * frequency / 2 - 20;
+			double x = k % width * wavelength - width * wavelength / 2 - 20;
+			double y = (int)(k / width) * wavelength - width * wavelength / 2 - 20;
 			//X component 
 			//Dot a = new Dot(new Point3D(x, y, 10000000 / (x * x + y * y) * x / Math.sqrt(x * x + y * y) ));
 			//Y component 
-			Dot a = new Dot(new Point3D(x, y, 10000000 / (x * x + y * y) * y / Math.sqrt(x * x + y * y)));
+			//Dot a = new Dot(new Point3D(x, y, 10000000 / (x * x + y * y) * y / Math.sqrt(x * x + y * y)));
 			//Dot a = new Dot(new Point3D(x, y, Math.sqrt(5 + 100 * Math.sqrt(x) + y * y)));
 			//Dot a = new Dot(new Point3D(x, y, Math.sqrt(1000000 * ( 1.0 / Math.sqrt(x * x + y * y) - 1.0 / 400) )    ));
 			//Dot a = new Dot(new Point3D( Math.cos(k / 20) * (int)(k / 40 / Math.PI + 40) * 50, Math.sin(k / 20) * (int)(k / 40 / Math.PI + 40) * 50 + 100000, -5000));
 			double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
 			//Dot a = new Dot(new Point3D(x, y, sineSwitch * Math.sqrt(1000000 - (x * x + y * y))));
-			//Dot a = new Dot(new Point3D(x, y, (x * x * x / 3 + y * y * x) / width / width / frequency / frequency));
-
-			//Dot a = new Dot(new Point3D(x, y, (Math.pow(x / frequency, 2) + Math.pow(y / frequency, 2) + Math.pow(width, 2) / 6)));
+			//Dot a = new Dot(new Point3D(x, y, (x * x * x / 3 + y * y * x) / width / width / wavelength / wavelength));
+			//Dot a = new Dot(new Point3D(x, y, (Math.pow(x / wavelength, 2) + Math.pow(y / wavelength, 2) + Math.pow(width, 2) / 6)));
+			//Dot a = new Dot(new Point3D(x, y, sineSwitch * Math.sqrt(-500000 + x * x + y * y)));
+			//Dot a = new Dot(new Point3D(x, y, (x * x - y * y) / 5000));
+			Dot a = new Dot(new Point3D(x, y, 1000 * Math.pow(Math.cos(x / 1000),2) * Math.pow(Math.cos(y / 1000), 2)));
 			//System.out.println(k);
-			a.radius = 20;
-			//a.color = new Color((int) (200),(int) (0),(int) (200));
-			a.color = new Color((int) (Math.random() * 150) + (int)(Math.random() * 107),(int) (Math.random() * 256),(int) (Math.random() * 150 + (int)(Math.random() * 107)));
+			a.radius = 60;
+			a.color = new Color((int) (200),(int) (0),(int) (200));
+			//a.color = new Color((int) (Math.random() * 150) + (int)(Math.random() * 107),(int) (Math.random() * 256),(int) (Math.random() * 150 + (int)(Math.random() * 107)));
 			//a.color = new Color((int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100);
 			panel.addControl3D(a);
 			dots[(int)k] = a;
@@ -75,13 +77,17 @@ public class Test {
 			public void run()
 			{
 				radiusTurn-= Math.PI / 300;
-				for (double k = -0; k <= width * width; k+= 2)
+				for (double k = -0; k < width * width; k+= 2)
 				{
 					//dots[(int)k].location = new Point3D(Math.sin(k / 10 + radiusTurn) * k / 10, k - 10000, Math.sin(k / 10 - Math.PI / 2 + radiusTurn) * k / 10);
 					double xOffset = 0;
 					double yOffset = 0;
 					double distance = Math.sqrt((Math.sin(k / 10) * k - xOffset) * (Math.sin(k / 10) * k - xOffset) + (Math.sin(k / 10 - Math.PI / 2) * k - yOffset) * (Math.sin(k / 10 - Math.PI / 2) * k - yOffset));
-					dots[(int)k].location = new Point3D(Math.sin(k / 10) * k, Math.sin(k / 10 - Math.PI / 2) * k, Math.cos(Math.sqrt((Math.sin(k / 10) * k - xOffset) * (Math.sin(k / 10) * k - xOffset) + (Math.sin(k / 10 - Math.PI / 2) * k - yOffset) * (Math.sin(k / 10 - Math.PI / 2) * k - yOffset)) / 400 + radiusTurn) * 800000 / Math.pow(distance, 1) );
+					//dots[(int)k].location = new Point3D(Math.sin(k / 10) * k, Math.sin(k / 10 - Math.PI / 2) * k, Math.cos(Math.sqrt((Math.sin(k / 10) * k - xOffset) * (Math.sin(k / 10) * k - xOffset) + (Math.sin(k / 10 - Math.PI / 2) * k - yOffset) * (Math.sin(k / 10 - Math.PI / 2) * k - yOffset)) / 400 + radiusTurn) * 800000 / Math.pow(distance, 1) );
+					double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
+					double x = k % width * wavelength - width * wavelength / 2 - 20;
+					double y = (int)(k / width) * wavelength - width * wavelength / 2 - 20;
+					dots[(int)k].location = new Point3D(new Point3D(x, y + 5000, sineSwitch * Math.sqrt(-500000 * Math.cos(radiusTurn) + x * x + y * y)));
 				}
 				Screen.repaint();
 			}
@@ -99,6 +105,7 @@ public class Test {
 			panel.addControl3D(a);
 		}
 		*/
+		///*
 		for (double k = 0; k <= 25000; k+= 1)
 		{
 			double angleHorizontal = Math.random() * 2 * Math.PI;
@@ -109,6 +116,7 @@ public class Test {
 			a.color = new Color((int) (Math.random() * 56) + 200, 255,(int) (Math.random() * 56) + 200);
 			panel.addControl3D(a);
 		}
+		//*/
 		int cubeDotDistance = 20;
 		int cubeDistance = 8000;
 		for (int y = -200; y < 200; y+=cubeDotDistance)
@@ -131,7 +139,6 @@ public class Test {
 			}
 		}
 		
-		
 		for (int x = 1000; x < 1400; x+=cubeDotDistance)
 		{
 			for (int z = -200; z < 200; z+=cubeDotDistance)
@@ -141,7 +148,6 @@ public class Test {
 				panel.addControl3D(a);
 			}
 		}
-		
 		
 		for (int y = -200; y < 200; y+=cubeDotDistance)
 		{
@@ -153,7 +159,6 @@ public class Test {
 			}
 		}
 		
-		
 		for (int x = 1000; x < 1400; x+=cubeDotDistance)
 		{
 			for (int y = -200; y < 200; y+=cubeDotDistance)
@@ -163,7 +168,6 @@ public class Test {
 				panel.addControl3D(a);
 			}
 		}
-		
 		
 		for (int x = 1000; x < 1400; x+=cubeDotDistance)
 		{
@@ -198,15 +202,18 @@ public class Test {
 		Dot h = new Dot(new Point3D(1000, - 10, - 10));
 		Dot i = new Dot(new Point3D(2000, 80, 10));
 		Dot j = new Dot(new Point3D(-3000, 60, - 10));
+		///*
 		LensFlare sun = new LensFlare(new Point3D(100000, 1000000, 0));
+		sun.color = new Color(247, 184, 19);
+		sun.radius = 100000;
+		panel.addControl3D(sun);
+		//*/
 		CelestialObject earth = new CelestialObject(new Point3D(0, 0, 0));
 		earth.mass = 50000;
 		earth.color = Color.green;
 		panel.addControl3D(earth);
 		panel.addControl3D(saturn);
 		earth.radius = 300;
-		sun.color = new Color(247, 184, 19);
-		sun.radius = 100000;
 		KeyEventListener listener = new KeyEventListener();
 		Screen.addKeyListener(listener);
 		b.color = new Color(255, 0, 0);
@@ -221,15 +228,10 @@ public class Test {
 		panel.addControl3D(h);
 		panel.addControl3D(i);
 		panel.addControl3D(j);
-		panel.addControl3D(sun);
 		panel.addControl3D(cubeLocator);
 		Screen.add(panel);
 		Screen.setVisible(true);
 		Screen.repaint();
-		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-		Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-		    cursorImg, new Point(0, 0), "blank cursor");
-		Screen.getContentPane().setCursor(blankCursor);
 		Timer tim = new Timer();
 		tim.scheduleAtFixedRate(new TimerTask()
 		{
